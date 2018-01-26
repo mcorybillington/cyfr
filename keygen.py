@@ -5,17 +5,19 @@ import random
 import math
 
 
-def randomNum():
-    rand=secrets.randbits(2048)
+def random_num():
+    rand = secrets.randbits(2048)
     return rand
 
 
 def is_prime(n):
-    if n < 2 or n%2 == 0:
+    if n < 2 or n % 2 == 0:
         return False
-    if n == 2 or n == 3: return True
-    if n < 9: return True
-    if n%3 == 0:
+    if n == 2 or n == 3:
+        return True
+    if n < 9:
+        return True
+    if n % 3 == 0:
         return False
     r = int(n**0.5)
     f = 5
@@ -26,15 +28,16 @@ def is_prime(n):
         return False
     if n % (f+2) == 0:
         return False
-    f +=6
+    f += 6
     return True
 
 
 def generate():
     while False:
         global num
-        num = randomNum()
+        num = random_num()
         is_prime(num)
     return num
+
 
 generate()
