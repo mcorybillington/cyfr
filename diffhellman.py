@@ -37,6 +37,11 @@ class MasterSecret:
     def private_key():
         public_mod = PublicBaseModulus.generate_prime_number()
         public_base = PublicBaseModulus.generate_prime_number()
+        private_key = secrets.randbits(2048)
+
+        init_key = MasterSecret.modular_pow(public_base, private_key, public_mod)
+        init_key = base64.urlsafe_b64decode(bytes(init_key.encode('utf-8')))
+
 
         # if public_base == public_mod:
         #     print("same base/mod")
@@ -44,8 +49,8 @@ class MasterSecret:
         #     print("not the same base/mod")
         # *test code* print("\n\n", "public base:\n", public_base, "\n\n", "public mod:\n",  public_mod, "\n\n")
 
-        alice_private = secrets.randbits(2048)
-        bob_private = secrets.randbits(2048)
+        # alice_private = secrets.randbits(2048)
+        # bob_private = secrets.randbits(2048)
 
         # print("bob private: \n", bob_private, "\nAlice Private: \n", alice_private)
 
