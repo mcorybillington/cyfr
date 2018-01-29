@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/cyfrloop.iml" filepath="$PROJECT_DIR$/.idea/cyfrloop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cyfr.iml" filepath="$PROJECT_DIR$/.idea/cyfr.iml" />
     </modules>
   </component>
 </project>
