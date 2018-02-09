@@ -1,7 +1,7 @@
 from cryptography.fernet import Fernet
 
 
-class SendCipherText:
+class CryptoThings:
 
     def __init__(self):
         pass
@@ -27,9 +27,6 @@ class SendCipherText:
         return Fernet(key).decrypt(self).decode('UTF-8')
 
     def send(self, key):
-        print("\nSent: ", self, "\n")
-        self = SendCipherText.encrypt(self, key)
-        print("[ Encrypted message: ]\n", self, "\n")
-        self = SendCipherText.decrypt(self, key)
-        print("Received: ", self, "\n")
+        return Fernet(key).encrypt(self, key)
+
 
