@@ -36,8 +36,9 @@ class AppWindow(QDialog):
 
     def send_msg(self):
         chat_sender = ChatSender()
-        chat_sender.ip = self.ipLineEdit.text()
+        chat_sender.address = self.ipLineEdit.text()
         chat_sender.message = self.msgInputLineEdit.text()
+        chat_sender.finished.connect(self.print_msg)
         chat_sender.run()
         while chat_sender.isRunning():
             AppWindow.processevents()
@@ -50,7 +51,7 @@ class ChatListener(QThread):
 
     def __init__(self):
         QThread.__init__(self)
-        self.ip = ''
+        self.ip = '192.168.0.6'
         self.port = 5004
         self.message = ''
         self.listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -67,7 +68,7 @@ class ChatListener(QThread):
 
 
 class ChatSender(QThread):
-    finished = pyqtSignal('PyQt_PyObject')
+    finished = pyqtSignal(str, str)
 
     def __init__(self):
         QThread.__init__(self)
@@ -79,6 +80,7 @@ class ChatSender(QThread):
     def run(self):
         self.send_socket.connect((self.address, self.port))
         self.send_socket.sendall(self.message.encode('utf-8'))
+        self.finished.emit("You", self.message)
 
 
 def main():
