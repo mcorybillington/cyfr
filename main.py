@@ -65,7 +65,6 @@ class ChatListener(QThread):
         return ip_addr
 
     def run(self):
-        print(self.ip)
         self.listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.listen_socket.bind((self.ip, self.port))
         self.listen_socket.listen(1)
