@@ -2,7 +2,8 @@ import sys
 import socket
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog, QApplication
-from PyQt5.QtCore import QThread, pyqtSignal
+from networking.listener import ChatListener
+from networking.sender import ChatSender
 
 
 class AppWindow(QDialog):
@@ -44,51 +45,6 @@ class AppWindow(QDialog):
             AppWindow.processevents()
         chat_sender.terminate()
         self.msgInputLineEdit.setText('')
-
-
-class ChatListener(QThread):
-    status = pyqtSignal(str, str)
-
-    def __init__(self):
-        QThread.__init__(self)
-        self.ip = self.get_ip_addr()
-        self.port = 5004
-        self.message = ''
-        self.listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    @staticmethod
-    def get_ip_addr():
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip_addr = s.getsockname()[0]
-        s.close()
-        return ip_addr
-
-    def run(self):
-        self.listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.listen_socket.bind((self.ip, self.port))
-        self.listen_socket.listen(1)
-        while True:
-            connection, address = self.listen_socket.accept()
-            self.message = connection.recv(2048).decode('utf-8')
-            address = str(address).split(',')[0].strip('[]\'(')
-            self.status.emit(address, self.message)
-
-
-class ChatSender(QThread):
-    finished = pyqtSignal(str, str)
-
-    def __init__(self):
-        QThread.__init__(self)
-        self.address = ''
-        self.port = 5004
-        self.message = ''
-        self.send_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    def run(self):
-        self.send_socket.connect((self.address, self.port))
-        self.send_socket.sendall(self.message.encode('utf-8'))
-        self.finished.emit("You", self.message)
 
 
 def main():
