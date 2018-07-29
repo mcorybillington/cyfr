@@ -51,12 +51,21 @@ class ChatListener(QThread):
 
     def __init__(self):
         QThread.__init__(self)
-        self.ip = '192.168.0.6'
+        self.ip = self.get_ip_addr()
         self.port = 5004
         self.message = ''
         self.listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    @staticmethod
+    def get_ip_addr():
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_addr = s.getsockname()[0]
+        s.close()
+        return ip_addr
+
     def run(self):
+        print(self.ip)
         self.listen_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.listen_socket.bind((self.ip, self.port))
         self.listen_socket.listen(1)
