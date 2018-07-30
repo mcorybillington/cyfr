@@ -15,7 +15,7 @@ pip3 install pyqt5
 pip3 install pycryptodome
 ```
 
-###Running
+### Running
 
 ```
 python3 main.py
