@@ -19,4 +19,3 @@ class FileOps():
                 id, key = line.split()
                 if id == self.identity:
                     return key
-
