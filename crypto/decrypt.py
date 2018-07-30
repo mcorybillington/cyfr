@@ -3,7 +3,7 @@ from Crypto.Cipher import AES
 
 class DecryptAES(object):
     def __init__(self):
-        self.enc = ""
+        self.enc = ''
         self.private_key = ''
 
     def decrypt(self):
