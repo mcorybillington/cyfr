@@ -1,6 +1,8 @@
 # cyfr
 
-Python PyQt5 based GUI p2p chat program with the goal of encrypted communication.
+Python PyQt5 based GUI p2p chat program with the goal of encrypted communication. Do not assume
+anything in here is correct/secure/etc because it probably isn't. This is for my personal 
+enjoyment and nothing else.
 
 ## Getting Started
 
