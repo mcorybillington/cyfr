@@ -1,14 +1,17 @@
-from Crypto import Random
-from Crypto.PublicKey import RSA
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.asymmetric import ec
 
 
 class MasterSecret:
 
     def __init__(self):
-        self.modulus_length = 4096
+        self.private_key = self.gen_private_key()
+        self.public_key = self.gen_public_key()
 
-    def generate_keys(self):
-        private_key = RSA.generate(self.modulus_length, Random.new().read)
-        private_key = repr(private_key)
-        return private_key
+    def gen_private_key(self):
+        return ec.generate_private_key(ec.SECP521R1, default_backend())
+
+    def gen_public_key(self):
+        return self.private_key.public_key()
+
 
