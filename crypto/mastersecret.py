@@ -1,5 +1,5 @@
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.hazmat.primitives.asymmetric.x25519 import X25519PrivateKey
 
 
 class MasterSecret:
@@ -9,7 +9,7 @@ class MasterSecret:
         self.public_key = self.gen_public_key()
 
     def gen_private_key(self):
-        return ec.generate_private_key(ec.SECP521R1, default_backend())
+        return X25519PrivateKey.generate()
 
     def gen_public_key(self):
         return self.private_key.public_key()
