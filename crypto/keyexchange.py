@@ -15,7 +15,7 @@ class KeyExchange(object):
     def get_derived_key(self):
         return HKDF(
             algorithm=hashes.SHA256(),
-            length=32,
+            length=128,
             salt=None,
             info=b'handshake data',
             backend=default_backend()

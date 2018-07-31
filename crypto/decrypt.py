@@ -1,4 +1,4 @@
-import base64
+from base64 import b64decode
 from Crypto.Cipher import AES
 
 
@@ -9,11 +9,11 @@ class DecryptAES(object):
         self.private_key = ''
 
     def decrypt(self):
-        enc = base64.b64decode(self.enc)
-        iv = enc[:self.bs]
+        enc = b64decode(self.enc)
+        iv = enc[:16]
         cipher = AES.new(self.private_key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[self.bs:])).decode('utf-8')
+        return self.unpad(cipher.decrypt(enc[16:])).decode('utf-8')
 
     @staticmethod
-    def _unpad(s):
+    def unpad(s):
         return s[:-ord(s[len(s) - 1:])]
