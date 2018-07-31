@@ -1,6 +1,7 @@
 import socket
 from PyQt5.QtCore import QThread, pyqtSignal
 
+
 class ChatListener(QThread):
     status = pyqtSignal(str, str)
 
